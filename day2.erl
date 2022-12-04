@@ -1,15 +1,12 @@
 -module(day2).
 -export([solve/0]).
-
-readLines(FileName) ->
-    {ok, Data} = file:read_file(FileName),
-    [ formatInput(V) || V <- binary:split(Data, [<<"\n">>], [global])].
+-import(util, []).
 
 formatInput(Value) ->
-    string:split(erlang:binary_to_list(Value), " ").
+    string:split(Value, " ").
 
 solve() ->
-    Lines = readLines("inputs/day2.txt"),
+    Lines = util:read_lines("inputs/day2.txt", fun formatInput/1),
     {part1(Lines, 0), part2(Lines, 0)}.
 
 part1([], TotalScore) -> TotalScore;

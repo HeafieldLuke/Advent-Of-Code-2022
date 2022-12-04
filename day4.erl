@@ -1,13 +1,9 @@
 -module(day4).
 -export([solve/0]).
-
-readLines(FileName) ->
-    {ok, Data} = file:read_file(FileName),
-    [ formatRangePairs(V) || V <- binary:split(Data, [<<"\n">>], [global])].
+-import(util, []).
 
 formatRangePairs(Value) ->
-    Input = erlang:binary_to_list(Value),
-    [Range1, Range2] = string:split(Input, ","),
+    [Range1, Range2] = string:split(Value, ","),
     {getRange(Range1), getRange(Range2)}.
 
 getRange(RangeString) ->
@@ -15,7 +11,7 @@ getRange(RangeString) ->
     {list_to_integer(Lower), list_to_integer(Upper)}.
 
 solve() ->
-    Lines = readLines("inputs/day4.txt"),
+    Lines = util:read_lines("inputs/day4.txt", fun formatRangePairs/1),
     {lists:foldl(fun part1/2, 0, Lines), lists:foldl(fun part2/2, 0, Lines)}.
 
 part1({Range1, Range2}, Acc) -> 

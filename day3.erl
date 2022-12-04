@@ -1,17 +1,14 @@
 -module(day3).
 -export([solve/0, find_shared_item_type/2]).
+-import(util, []).
 
-readLines(FileName) ->
-    {ok, Data} = file:read_file(FileName),
-    [ split_into_compartments(V) || V <- binary:split(Data, [<<"\n">>], [global])].
 
 split_into_compartments(Value) ->
-    RuckSack = erlang:binary_to_list(Value),
-    PartitionSize = length(RuckSack) div 2,
-    lists:split(PartitionSize, RuckSack).
+    PartitionSize = length(Value) div 2,
+    lists:split(PartitionSize, Value).
 
 solve() ->
-    Lines = readLines("inputs/day3.txt"),
+    Lines = util:read_lines("inputs/day3.txt", fun split_into_compartments/1),
     {part1(Lines, 0), part2(Lines, 0)}.
 
 part1([], Acc) -> Acc;

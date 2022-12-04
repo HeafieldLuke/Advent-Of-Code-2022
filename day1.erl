@@ -1,13 +1,10 @@
 
 -module(day1).
 -export([solve/0]).
-
-readLines(FileName) ->
-    {ok, Data} = file:read_file(FileName),
-    [ erlang:binary_to_list(V) || V <- binary:split(Data, [<<"\n">>], [global])].
+-import(util, []).
 
 solve() ->
-    Lines = readLines("inputs/day1.txt"),
+    Lines = util:read_lines("inputs/day1.txt", fun(X) -> X end),
     {part1(Lines, 0, 0), part2(Lines, {0, 0, 0}, 0)}.
 
 part1([], CurrentMax, _) -> CurrentMax;
