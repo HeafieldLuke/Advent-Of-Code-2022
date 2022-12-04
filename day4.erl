@@ -16,15 +16,13 @@ getRange(RangeString) ->
 
 solve() ->
     Lines = readLines("inputs/day4.txt"),
-    {part1(Lines, 0), part2(Lines, 0)}.
+    {lists:foldl(fun part1/2, 0, Lines), lists:foldl(fun part2/2, 0, Lines)}.
 
-part1([], Acc) -> Acc;
-part1([ {Range1, Range2} | Tail], Acc) -> 
-    part1(Tail, Acc + is_fully_contained(Range1, Range2)).
+part1({Range1, Range2}, Acc) -> 
+    Acc + is_fully_contained(Range1, Range2).
 
-part2([], Acc) -> Acc;
-part2([ {Range1, Range2} | Tail], Acc) -> 
-    part2(Tail, Acc + has_any_overlap(Range1, Range2)).
+part2({Range1, Range2}, Acc) -> 
+    Acc + has_any_overlap(Range1, Range2).
 
 has_any_overlap({Lower1, Upper1}, {Lower2, Upper2}) ->
     Range1 = lists:seq(Lower1, Upper1),
